@@ -72,7 +72,7 @@
 <br>
 </details>
 
-# Using ECS to deploy a Docker app to AWS
+# [Using ECS to deploy a Docker app to AWS](https://www.youtube.com/watch?v=zs3tyVgiBQQ)
 
 <details open>
 <summary> How to install AWS CLI </summary>
