@@ -151,8 +151,9 @@ Creating a user in AWS Identity and Access Management (IAM) and granting it the 
    - Review the user details and attached policies. Click "Create user."
 
 #### Step 5: Download Credentials
-- After creating the user, you will see a success message with the user's Access Key ID and Secret Access Key.
-  - **Important:** Download the `.csv` file containing the credentials or copy the Access Key ID and Secret Access Key to a secure location. **You won't be able to see the Secret Access Key again.**
+- After creating the user, you will see a success message with the user's
+- Click `create access key` 
+  - **Important:** Download the `.csv` file containing the credentials or copy the Access Key ID and Secret Access Key to a secure location. `You won't be able to see the Secret Access Key again.`
 
 #### Step 6: Configure the AWS CLI with New User Credentials
 1. **Open Terminal or Command Prompt:**
