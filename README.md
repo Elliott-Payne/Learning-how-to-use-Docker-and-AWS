@@ -141,10 +141,7 @@ Creating a user in AWS Identity and Access Management (IAM) and granting it the 
    - Select "Attach existing policies directly."
 2. **Choose Policies:**
    - For basic CLI usage, you can attach the following policies:
-     - `AmazonS3ReadOnlyAccess`: Grants read-only access to S3 buckets.
-     - `AmazonEC2ReadOnlyAccess`: Grants read-only access to EC2 instances.
-     - `IAMUserChangePassword`: Allows the user to change their own password.
-   - For more comprehensive access, you might use `AdministratorAccess`, but be cautious as it grants full access to all AWS resources.
+     -  use `AdministratorAccess`, but be cautious as it grants full access to all AWS resources.
 3. **Click Next:**
    - Click "Next: Tags" (optional to add tags).
 4. **Review:**
@@ -201,10 +198,9 @@ AWS Elastic Container Registry (ECR) is a managed container image registry servi
    - Replace `<account-id>` with your AWS account ID.
    - Replace `<my-app>` with your preferred image name.
 
-#### Step 3: Build Your Docker Image
-1. **Navigate to Your App Directory:**
-   - In your terminal or command prompt, navigate to the directory containing your Dockerized app (where the `Dockerfile` is located).
-2. **Build the Docker Image:**
+#### Step 3: Navigate to Your App Directory
+1.  In your terminal or command prompt, navigate to the directory containing your Dockerized app (where the `Dockerfile` is located).
+3. **Build the Docker Image:**
    - Run the following command to build your Docker image:
      ```sh
      docker build -t my-app .
