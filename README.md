@@ -85,15 +85,15 @@ The AWS Command Line Interface (CLI) is a tool that lets you manage AWS services
 
 #### Step 2: Download the Installer
 - **Windows:**
-  1. Download the installer from the [AWS CLI MSI Installer for Windows](https://awscli.amazonaws.com/AWSCLIV2.msi).
+  - Download the installer from the [AWS CLI MSI Installer for Windows](https://awscli.amazonaws.com/AWSCLIV2.msi).
 - **macOS:**
-  1. Download the installer from the [AWS CLI pkg Installer for macOS](https://awscli.amazonaws.com/AWSCLIV2.pkg).
+  - Download the installer from the [AWS CLI pkg Installer for macOS](https://awscli.amazonaws.com/AWSCLIV2.pkg).
 
 #### Step 3: Install the AWS CLI
 - **Windows:**
-  1. Run the downloaded MSI installer and follow the on-screen instructions.
+  - Run the downloaded MSI installer and follow the on-screen instructions.
 - **macOS:**
-  1. Run the downloaded pkg installer and follow the on-screen instructions.
+  - Run the downloaded pkg installer and follow the on-screen instructions.
 
 #### Step 4: Verify the Installation
 - After installation, verify that the AWS CLI is installed correctly by opening a terminal or command prompt and typing:
@@ -170,3 +170,112 @@ Creating a user in AWS Identity and Access Management (IAM) and granting it the 
 By following these steps, you can create an IAM user with the necessary permissions to use the AWS CLI.
 </details>
 
+<details open>
+  <summary> Uploading a Dockerized app to AWS ECR </summary>
+<br>
+
+AWS Elastic Container Registry (ECR) is a managed container image registry service. This guide will walk you through the steps to upload a Dockerized app to AWS ECR.
+
+#### Prerequisites
+- An AWS account
+- Docker installed on your local machine
+- AWS CLI installed and configured on your local machine
+- Your Dockerized application
+
+#### Step 1: Create an ECR Repository
+1. **Sign in to AWS Management Console:**
+   - Go to the [AWS Management Console](https://aws.amazon.com/console/) and sign in.
+2. **Navigate to ECR:**
+   - In the AWS Management Console, search for "ECR" in the search bar and select "Elastic Container Registry."
+3. **Create a Repository:**
+   - Click on "Repositories" in the left-hand sidebar.
+   - Click the "Create repository" button.
+   - **Repository Name:** Enter a name for your repository (e.g., `my-app`).
+   - Click "Create repository."
+
+#### Step 2: Authenticate Docker to Your ECR Registry
+1. **Open Terminal or Command Prompt:**
+   - On your local machine, open a terminal or command prompt.
+2. **Run Authentication Command:**
+   - Run the following AWS CLI command to authenticate Docker to your ECR registry:
+     ```sh
+     aws ecr get-login-password --region <your-region> | docker login -u AWS -p $(aws ecr get-login-password --region <region>)<account-id>.dkr.ecr.<your-region>.amazonaws.com/my-app
+     ```
+   - Replace `<your-region>` with your AWS region (e.g., `us-west-1`).
+   - Replace `<account-id>` with your AWS account ID.
+   - Replace `<my-app>` with your preferred image name.
+
+#### Step 3: Build Your Docker Image
+1. **Navigate to Your App Directory:**
+   - In your terminal or command prompt, navigate to the directory containing your Dockerized app (where the `Dockerfile` is located).
+2. **Build the Docker Image:**
+   - Run the following command to build your Docker image:
+     ```sh
+     docker build -t my-app .
+     ```
+   - Replace `my-app` with your preferred image name.
+
+#### Step 4: Tag Your Docker Image
+- Tag your Docker image with the ECR repository URI:
+  ```sh
+  docker tag my-app:latest <account-id>.dkr.ecr.<your-region>.amazonaws.com/my-app:latest
+  ```
+  - Replace `my-app` with your image name.
+  - Replace `<account-id>` with your AWS account ID.
+  - Replace `<your-region>` with your AWS region.
+  - Replace `latest` with your preferred tag (e.g., a version number).
+
+#### Step 5: Push Your Docker Image to ECR
+- Push the tagged image to your ECR repository:
+  ```sh
+  docker push <account-id>.dkr.ecr.<your-region>.amazonaws.com/my-app:latest
+  ```
+  - Replace `my-app` with your image name.
+  - Replace `<account-id>` with your AWS account ID.
+  - Replace `<your-region>` with your AWS region.
+  - Replace `latest` with your tag.
+
+By following these steps, you should be able to upload your Dockerized app to AWS ECR, making it accessible for deployment in AWS services like ECS or Kubernetes.
+
+</details>
+
+<details open>
+<br>
+<summary> Creating a Cluster in AWS ECS Using the AWS Management Console </summary>
+
+Amazon Elastic Container Service (ECS) is a highly scalable container management service that makes it easy to run, stop, and manage Docker containers on a cluster. This guide will walk you through the steps to create an ECS cluster using the AWS Management Console.
+
+#### Step 1: Navigate to Amazon ECS
+- In the AWS Management Console, search for "ECS" in the search bar and select "Elastic Container Service" to open the ECS Dashboard.
+
+#### Step 2: Create a New Cluster
+1. **Open the Clusters Page:**
+   - Click on "Clusters" in the left-hand sidebar.
+   - Click the "Create Cluster" button.
+
+2. **Select a Cluster Template:**
+
+  - **EC2 Linux + Networking:** we will manage our own EC2 instances for running containers.
+
+3. **Configure Cluster:**
+
+##### For EC2 Linux + Networking
+1. **Cluster Name:**
+   - Enter a name for your cluster (e.g., `my-ec2-cluster`).
+2. **Provisioning Model:**
+   - Select the provisioning model (e.g., On-Demand or Spot Instances).
+3. **EC2 Instance Type:**
+   - Select the EC2 instance type (e.g., `t2.micro`). (this is free tier eligible) 
+4. **Number of Instances:**
+   - Select 1
+     - This specifies the number of instances for your cluster.
+6. **Networking:**
+   - Choose the default VPC and subnets.
+7. **Enable Auto-Assign IP**
+9. **Create:**
+   - Click the "Create" button to create the cluster.
+
+#### Step 3: View Your Cluster
+- After the cluster is created, you’ll be redirected to the cluster’s detail page where you can see information about your cluster, including cluster name, status, and other configurations.
+
+By following these steps, you should be able to create a cluster in AWS ECS using the AWS Management Console, ready to run and manage your Docker containers.</summary>
