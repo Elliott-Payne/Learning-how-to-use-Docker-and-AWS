@@ -75,5 +75,98 @@ By following these steps, you should be able to run a Docker container on your c
 
 # Using ECS to deploy a Docker app to AWS
 
+<details open>
+<summary> How to install AWS CLI </summary>
+<br>
+The AWS Command Line Interface (CLI) is a tool that lets you manage AWS services and resources through a command line. Here's a step-by-step guide to install the AWS CLI on your computer.
 
+#### Step 1: Check System Requirements
+- Ensure your system meets the minimum requirements for installing the AWS CLI. The AWS CLI is compatible with Windows and macOS.
+
+#### Step 2: Download the Installer
+- **Windows:**
+  1. Download the installer from the [AWS CLI MSI Installer for Windows](https://awscli.amazonaws.com/AWSCLIV2.msi).
+- **macOS:**
+  1. Download the installer from the [AWS CLI pkg Installer for macOS](https://awscli.amazonaws.com/AWSCLIV2.pkg).
+
+#### Step 3: Install the AWS CLI
+- **Windows:**
+  1. Run the downloaded MSI installer and follow the on-screen instructions.
+- **macOS:**
+  1. Run the downloaded pkg installer and follow the on-screen instructions.
+
+#### Step 4: Verify the Installation
+- After installation, verify that the AWS CLI is installed correctly by opening a terminal or command prompt and typing:
+  ```sh
+  aws --version
+  ```
+  - You should see the version of the AWS CLI that you have installed.
+
+#### Step 5: Configure the AWS CLI
+- Before you can use the AWS CLI, you need to configure it with your AWS credentials.
+- In the terminal or command prompt, type:
+  ```sh
+  aws configure
+  ```
+  - You will be prompted to enter your AWS Access Key ID, Secret Access Key, default region name, and default output format. If you don't have an Access Key ID and Secret Access Key, you can create them in the AWS Management Console.
+
+#### Additional Tips
+- **AWS Documentation:** For more detailed information and troubleshooting, refer to the [AWS CLI User Guide](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html).
+- **AWS IAM:** Ensure your AWS IAM user has the necessary permissions to perform actions with the AWS CLI.
+
+By following these steps, you should be able to install and configure the AWS CLI on your computer successfully.
+
+</details>
+
+<details open> 
+<summary> Creating an IAM User and Granting Permissions for AWS CLI </summary>
+<br>
+
+Creating a user in AWS Identity and Access Management (IAM) and granting it the necessary permissions to use AWS CLI is essential for secure and efficient management of AWS resources. Follow these steps to set up an IAM user with the appropriate permissions.
+
+#### Step 1: Sign in to AWS Management Console
+- Go to the [AWS Management Console](https://aws.amazon.com/console/) and sign in with your root account or an existing IAM user with administrative permissions.
+
+#### Step 2: Navigate to IAM
+- In the AWS Management Console, search for "IAM" in the search bar and select "IAM" to open the IAM Dashboard.
+
+#### Step 3: Create a New IAM User
+1. **Click on Users:**
+   - In the left-hand sidebar, click on "Users."
+2. **Add User:**
+   - Click the "Add user" button at the top of the page.
+3. **Set User Details:**
+   - **User Name:** Enter a username for the new user (e.g., `cli-user`).
+   - **Access Type:** Check the box for "Access key - Programmatic access" to enable the user to use the AWS CLI, SDK, and API.
+
+#### Step 4: Set Permissions
+1. **Attach Policies Directly:**
+   - Select "Attach existing policies directly."
+2. **Choose Policies:**
+   - For basic CLI usage, you can attach the following policies:
+     - `AmazonS3ReadOnlyAccess`: Grants read-only access to S3 buckets.
+     - `AmazonEC2ReadOnlyAccess`: Grants read-only access to EC2 instances.
+     - `IAMUserChangePassword`: Allows the user to change their own password.
+   - For more comprehensive access, you might use `AdministratorAccess`, but be cautious as it grants full access to all AWS resources.
+3. **Click Next:**
+   - Click "Next: Tags" (optional to add tags).
+4. **Review:**
+   - Review the user details and attached policies. Click "Create user."
+
+#### Step 5: Download Credentials
+- After creating the user, you will see a success message with the user's Access Key ID and Secret Access Key.
+  - **Important:** Download the `.csv` file containing the credentials or copy the Access Key ID and Secret Access Key to a secure location. **You won't be able to see the Secret Access Key again.**
+
+#### Step 6: Configure the AWS CLI with New User Credentials
+1. **Open Terminal or Command Prompt:**
+   - On your computer, open a terminal or command prompt.
+2. **Configure AWS CLI:**
+   - Type the following command and press Enter:
+     ```sh
+     aws configure
+     ```
+   - Copy and Paste in the Access Key ID and press enter. Copy and paste the Secret Access Key and press enter. Enter in default region name of your choice (e.g., `us-west-1`), and default output format (e.g., `json`) when prompted.
+
+By following these steps, you can create an IAM user with the necessary permissions to use the AWS CLI.
+</details>
 
