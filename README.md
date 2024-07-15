@@ -69,7 +69,6 @@
 - **Docker Hub:** Explore other images on [Docker Hub](https://hub.docker.com/), where you can find official images for various applications.
 - **Docker Documentation:** For more detailed information, refer to the [Docker documentation](https://docs.docker.com/).
 
-By following these steps, you should be able to run a Docker container on your computer successfully.
 <br>
 </details>
 
@@ -113,8 +112,6 @@ The AWS Command Line Interface (CLI) is a tool that lets you manage AWS services
 #### Additional Tips
 - **AWS Documentation:** For more detailed information and troubleshooting, refer to the [AWS CLI User Guide](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html).
 - **AWS IAM:** Ensure your AWS IAM user has the necessary permissions to perform actions with the AWS CLI.
-
-By following these steps, you should be able to install and configure the AWS CLI on your computer successfully.
 
 </details>
 
@@ -166,8 +163,6 @@ Creating a user in AWS Identity and Access Management (IAM) and granting it the 
      aws configure
      ```
    - Copy and Paste in the Access Key ID and press enter. Copy and paste the Secret Access Key and press enter. Enter in default region name of your choice (e.g., `us-west-1`), and default output format (e.g., `json`) when prompted.
-
-By following these steps, you can create an IAM user with the necessary permissions to use the AWS CLI.
 </details>
 
 <details open>
@@ -235,7 +230,8 @@ AWS Elastic Container Registry (ECR) is a managed container image registry servi
   - Replace `<your-region>` with your AWS region.
   - Replace `latest` with your tag.
 
-By following these steps, you should be able to upload your Dockerized app to AWS ECR, making it accessible for deployment in AWS services like ECS or Kubernetes.
+### Step 6: Copy the image URL and save it somewhere for later.
+  - `It will be used in a later step.`
 
 </details>
 
@@ -263,19 +259,77 @@ Amazon Elastic Container Service (ECS) is a highly scalable container management
 1. **Cluster Name:**
    - Enter a name for your cluster (e.g., `my-ec2-cluster`).
 2. **Provisioning Model:**
-   - Select the provisioning model (e.g., On-Demand or Spot Instances).
+   - Select the On-Demand provisioning model.
 3. **EC2 Instance Type:**
-   - Select the EC2 instance type (e.g., `t2.micro`). (this is free tier eligible) 
-4. **Number of Instances:**
-   - Select 1
-     - This specifies the number of instances for your cluster.
-6. **Networking:**
+   - Select `t2.micro` (this is free tier eligible) 
+4. **Networking:**
    - Choose the default VPC and subnets.
-7. **Enable Auto-Assign IP**
-9. **Create:**
-   - Click the "Create" button to create the cluster.
+5. **Enable Auto-Assign IP**
+6. **Create:**
+   - Click the `Create` button to create the cluster.
 
 #### Step 3: View Your Cluster
 - After the cluster is created, you’ll be redirected to the cluster’s detail page where you can see information about your cluster, including cluster name, status, and other configurations.
+</details>
 
-By following these steps, you should be able to create a cluster in AWS ECS using the AWS Management Console, ready to run and manage your Docker containers.</summary>
+<details open>
+<summary> Creating a Task Definition in Amazon ECS </summary>
+<br>
+A task definition in Amazon Elastic Container Service (ECS) is a blueprint for your application, describing how Docker containers should be launched and run. This guide will walk you through the steps to create a task definition using the AWS Management Console.
+
+#### Step 1: Sign in to AWS Management Console
+- Go to the [AWS Management Console](https://aws.amazon.com/console/) and sign in with your AWS account.
+
+#### Step 2: Navigate to Amazon ECS
+- In the AWS Management Console, search for "ECS" in the search bar and select "Elastic Container Service" to open the ECS Dashboard.
+
+#### Step 3: Open Task Definitions
+- In the left-hand sidebar, click on `Task Definitions.`
+- Click the "Create new Task Definition" button.
+
+#### Step 4: Choose Launch Type Compatibility
+- Select the `EC2` launch type 
+- Click the `Next step` button.
+
+#### Step 5: Configure Task Definition
+1. **Task Definition Name:**
+   - Enter a name for your task definition (e.g., `my-task`).
+
+2. **Network Mode:**
+   - Select the `default` network mode for your containers
+
+#### Step 6: Add Container Definitions
+1. **Click "Add container":**
+   - Enter the following details:
+     - **Container name:** Name for your container (e.g., `my-container`).
+     - **Image:** Paste in the Image URL from `Step 6 of Uploading a Dockerized app to AWS ECR.`
+     - **Memory Limits:** Specify the soft and hard memory limits.
+     - **Port Mappings:** Define port mappings if needed (e.g., container port `80` to host port `80`).
+
+2. **Click "Add":**
+   - After filling in the container details, click `Add` to add the container definition to your task definition.
+
+#### Step 7: Create
+- Click the `Create` button to create the task definition.
+</details>
+
+<details open>
+  <summary> Deploying a Task onto a Cluster in Amazon ECS </summary>
+<br>
+Deploying a task onto a cluster in Amazon Elastic Container Service (ECS) involves launching and running your Docker containers based on a defined task definition. This guide will walk you through the steps to deploy a task onto a cluster using the AWS Management Console.
+
+#### Step 1: Navigate to Amazon ECS
+- In the AWS Management Console, search for "ECS" in the search bar and select "Elastic Container Service" to open the ECS Dashboard.
+
+#### Step 2: Select Your Cluster
+- In the left-hand sidebar, click on "Clusters."
+- Click on the name of the cluster where you want to deploy your task.
+
+#### Step 3: Run a Task (One-Time Execution)
+1. Click the "Run Task" button in the "Tasks" tab.
+2. **Launch Type:** Select the launch type compatibility (Fargate or EC2).
+3. **Task Definition:** Choose the task definition you created earlier.
+4. **Cluster VPC:** Select the VPC and subnets where your task will run.
+5. **Number of Tasks:** Specify the number of tasks to run.
+6. **Click "Run Task"** to deploy your task.
+</details>
